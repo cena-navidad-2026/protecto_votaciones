@@ -1,14 +1,53 @@
 
+import { useEffect, useState } from 'react'
+
 import Header from '../components/layout/Header'
 import LocalCard from '../components/votaciones/LocalCard'
-import { localesDemo } from '../data/localesDemo'
+import CuentaRegresiva from '../components/comunes/CuentaRegresiva'
+
+import { obtenerLocales } from '../services/localService'
+import type { Local } from '../types/local'
 
 export default function HomePage() {
+  const [locales, setLocales] = useState<Local[]>([])
+  const [cargando, setCargando] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function cargarLocales() {
+      try {
+        setCargando(true)
+        setError(null)
+
+        const resultado = await obtenerLocales()
+
+        console.log('Locales cargados:', resultado)
+
+        setLocales(resultado)
+      } catch (err) {
+        console.error('Error:', err)
+        setError('No se pudieron cargar los locales.')
+      } finally {
+        setCargando(false)
+      }
+    }
+
+    cargarLocales()
+  }, [])
+
   return (
     <div className="min-h-screen">
+      {/* ENCABEZADO */}
       <Header />
 
       <main className="relative mx-auto max-w-7xl px-6 py-10">
+
+        {/* CUENTA REGRESIVA */}
+        <section className="mb-7">
+          <CuentaRegresiva />
+        </section>
+
+        {/* LOCALES CANDIDATOS */}
         <section>
           <div className="mb-8">
             <span className="text-xs font-bold uppercase tracking-widest text-[#00aaa9]">
@@ -20,16 +59,40 @@ export default function HomePage() {
             </h2>
 
             <p className="mt-2 text-slate-500">
-              Conoce las opciones disponibles y elige
+              Conoce las propuestas navideñas y elige
               tu local favorito.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {localesDemo.map((local) => (
-              <LocalCard key={local.id} local={local} />
-            ))}
-          </div>
+          {cargando && (
+            <div className="py-12 text-center text-slate-500">
+              Cargando locales desde Supabase...
+            </div>
+          )}
+
+          {error && (
+            <div className="rounded-xl border border-red-200 bg-red-50 p-5 text-red-600">
+              {error}
+            </div>
+          )}
+
+          {!cargando && !error && locales.length === 0 && (
+            <div className="py-12 text-center text-slate-500">
+              No hay locales disponibles.
+            </div>
+          )}
+
+          {!cargando && !error && (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {locales.map((local) => (
+                <LocalCard
+                  key={local.id}
+                  local={local}
+                />
+              ))}
+            </div>
+          )}
+
         </section>
       </main>
     </div>
