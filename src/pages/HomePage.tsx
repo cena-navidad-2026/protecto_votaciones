@@ -45,6 +45,14 @@ export default function HomePage() {
         {/* CUENTA REGRESIVA */}
         <section className="mb-7">
           <CuentaRegresiva />
+          <div className="mt-5 flex justify-center">
+            <a
+              href={`${import.meta.env.BASE_URL}?vista=intercambio`}
+              className="rounded-xl bg-[#062b54] px-6 py-3 font-bold text-white shadow-lg transition hover:bg-[#00aaa9]"
+            >
+              🎁 Visitar el Árbol de Deseos
+            </a>
+          </div>
         </section>
 
         {/* LOCALES CANDIDATOS */}
