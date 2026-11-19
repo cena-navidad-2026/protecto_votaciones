@@ -18,6 +18,7 @@ import './IntercambioPage.css'
 // =====================================================
 
 const MAX_PARTICIPANTES = 14
+const PARTICIPANTES_VISIBLES = 12
 const MAX_DESEOS = 8
 const INTERVALO_ACTUALIZACION = 30000
 
@@ -494,7 +495,7 @@ export default function IntercambioPage() {
           </div>
 
           <span className="intercambio-contador">
-            🎁 {participantes.length} / {MAX_PARTICIPANTES} regalos
+            🎁 {participantes.length} / {PARTICIPANTES_VISIBLES} regalos
           </span>
 
         </div>
