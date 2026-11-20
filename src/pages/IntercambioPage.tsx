@@ -470,6 +470,26 @@ export default function IntercambioPage() {
           ¡Descubre qué le gustaría recibir!
         </p>
 
+        {/* AVISO DEL VALOR MÍNIMO DEL REGALO */}
+
+        <div className="mt-5 flex justify-center">
+          <div className="flex items-center gap-3 rounded-2xl border border-amber-400/40 bg-amber-400/10 px-6 py-3 shadow-md">
+            <span className="text-2xl">🎁</span>
+
+            <div className="text-left">
+              <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">
+                Intercambio Navideño 2026
+              </p>
+
+              <p className="text-sm font-bold text-white sm:text-base">
+                Valor mínimo del regalo:
+                <span className="ml-2 text-lg font-extrabold text-amber-300">
+                  S/ 50.00
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
       </header>
 
       {/* ============================================= */}
